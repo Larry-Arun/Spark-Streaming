@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/l2118i.iml" filepath="$PROJECT_DIR$/.idea/l2118i.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Spark Streaming.iml" filepath="$PROJECT_DIR$/.idea/Spark Streaming.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sparktrain/sparktrain.iml" filepath="$PROJECT_DIR$/sparktrain/sparktrain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/imooc_web/web.iml" filepath="$PROJECT_DIR$/imooc_web/web.iml" />
     </modules>
   </component>
 </project>

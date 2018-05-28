@@ -78,14 +78,10 @@ object ImoocStatStreamingApp {
     // 测试步骤四：统计从搜索引擎过来的今天到现在为止实战课程的访问量
 
     cleanData.map(x => {
-
       /**
         * https://www.sogou.com/web?query=Spark SQL实战
-        *
-        * ==>
-        *
-        * https:/www.sogou.com/web?query=Spark SQL实战
         */
+
       val referer = x.referer.replaceAll("//", "/")
       val splits = referer.split("/")
       var host = ""

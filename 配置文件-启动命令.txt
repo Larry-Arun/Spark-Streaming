@@ -1,0 +1,106 @@
+vim ~/.bash_profile
+PATH=$PATH:$HOME/bin
+
+export JAVA_HOME=/home/hadoop/jdk1.8.0_11
+export PATH=$JAVA_HOME/bin:$PATH
+
+export HADOOP_HOME=/home/hadoop/hadoop-2.6.0-cdh5.7.0
+export PATH=$HADOOP_HOME/bin:$PATH
+
+export FLUME_HOME=/home/hadoop/apache-flume-1.6.0-bin
+export PATH=$FLUME_HOME/bin:$PATH
+
+export KAFKA_HOME=/home/hadoop/kafka_2.11-0.9.0.0
+export PATH=$KAFKA_HOME/bin:$PATH
+
+export ZK_HOME=/home/hadoop/zookeeper-3.4.5-cdh5.7.0
+export PATH=$ZK_HOME/bin:$PATH
+
+export MAVEN_HOME=/home/hadoop/apache-maven-3.3.9
+export PATH=$MAVEN_HOME/bin:$PATH
+
+export HBASE_HOME=/home/hadoop/hbase-1.2.0-cdh5.7.0
+export PATH=$HBASE_HOME/bin:$PATH
+
+export SCALA_HOME=/home/hadoop/scala-2.11.8
+export PATH=$SCALA_HOME/bin:$PATH
+
+export SPARK_HOME=/home/hadoop/spark-2.2.0
+export PATH=$SPARK_HOME/bin:$PATH
+
+source ~/.bash_profile
+
+配置maven
+mkdir maven_repos
+cd apache-maven-3.3.9/conf
+vim settings.xml
+<localRepository>/home/hadoop/maven_repos/</localRepository>
+
+
+配置Hadoop
+cd /home/hadoop/hadoop-2.6.0-cdh5.7.0/etc/hadoop
+vim hadoop-env.sh
+export JAVA_HOME=/home/hadoop/jdk1.8.0_11
+
+vim core-site.xml
+        <property>
+                <name>hadoop.tmp.dir</name>
+                <value>/home/hadoop/tmp</value>
+        </property>
+        <property>
+                <name>fs.default.name</name>
+                <value>hdfs://192.168.241.10:8020</value>
+        </property>
+		
+vim hdfs-site.xml
+         <property>
+                 <name>dfs.replication</name>
+                 <value>3</value>
+         </property>
+		 
+vim slaves
+slave1
+slave2
+
+cp mapred-site.xml.template mapred-site.xml
+vim mapred-site.xml
+         <property>
+                 <name>mapreduce.framework.name</name>
+                 <value>yarn</value>
+         </property>
+		 
+vim yarn-site.xml
+         <property>
+                 <name>yarn.nodemanager.aux-services</name>
+                 <value>mapreduce_shuffle</value>
+         </property>
+		 
+配置Hbase
+cd /home/hadoop/hbase-1.2.0-cdh5.7.0/conf
+vim hbase-env.sh
+export JAVA_HOME=/home/hadoop/jdk1.8.0_11
+export HBASE_MANAGES_ZK=false
+
+vim hbase-site.xml
+        <property>
+                <name>hbase.rootdir</name>
+                <value>hdfs://192.168.241.10:8020/hbase</value>
+        </property>
+        <property>
+                <name>hbase.cluster.distribute</name>
+                <value>true</value>
+        </property>
+        <property>
+                <name>hbase.zookeeper.quorum</name>
+                <value>master:2181</value>
+        </property>		
+vim  regionservers
+slave1
+slave2
+
+Spark源码编译
+作者：
+链接：https://www.imooc.com/article/18419
+来源：慕课网
+cd /home/hadoop/spark-2.2.0/dev
+./dev/make-distribution.sh --name 2.6.0-cdh5.7.0 --tgz  -Pyarn -Phadoop-2.6 -Phive -Phive-thriftserver -Dhadoop.version=2.6.0-cdh5.7.0

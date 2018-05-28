@@ -12,7 +12,6 @@ import java.util.Properties;
 public class KafkaProducer extends Thread{
 
     private String topic;
-
     private Producer<Integer, String> producer;
 
     public KafkaProducer(String topic) {
